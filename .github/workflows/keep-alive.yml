@@ -12,6 +12,7 @@ jobs:
       - name: Ping Supabase
         run: |
           STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
-            "${{ secrets.SUPABASE_URL }}/auth/v1/health")
+            "${{ secrets.SUPABASE_URL }}/auth/v1/health" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}")
           echo "Status: $STATUS"
           [ "$STATUS" = "200" ] && echo "Supabase is alive" || exit 1
